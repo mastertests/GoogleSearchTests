@@ -23,13 +23,12 @@ public class SearchTest {
 
     @Test
     @Parameters("search")
-    public void testGoogleSearch(String searchWords) throws InterruptedException {
+    public void testGoogleSearch(String searchWords) {
         driver.get("http://www.google.com/");
         driver.findElement(By.id("lst-ib")).sendKeys(searchWords);
-//        driver.wait(5000);
         driver.findElement(By.name("btnK")).submit();
         List<WebElement> linkTitles = driver.findElements(By.className("LC20lb"));
-        for (WebElement title:linkTitles) {
+        for (WebElement title : linkTitles) {
             String titleText = title.getText();
             Assert.assertTrue(titleText.contains(searchWords));
         }
