@@ -1,7 +1,0 @@
-*.iml
-.idea
-out
-target/
-/chromedriver.exe
-.gitignore
-src/main/resources/
