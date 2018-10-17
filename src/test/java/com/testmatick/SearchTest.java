@@ -1,6 +1,6 @@
 package com.testmatick;
 
-import org.openqa.selenium.By;
+import com.testmatick.pages.GoogleSearchPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,7 +16,7 @@ public class SearchTest {
     private WebDriver driver;
 
     @BeforeClass
-    public void turnUp() {
+    public void setUp() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver = new ChromeDriver();
     }
@@ -25,17 +25,18 @@ public class SearchTest {
     @Parameters("search")
     public void testGoogleSearch(String searchWords) {
         driver.get("http://www.google.com/");
-        driver.findElement(By.id("lst-ib")).sendKeys(searchWords);
-        driver.findElement(By.name("btnK")).submit();
-        List<WebElement> linkTitles = driver.findElements(By.className("LC20lb"));
+
+        GoogleSearchPage page = new GoogleSearchPage(driver);
+        List<WebElement> linkTitles = page.searchFor(searchWords);
         for (WebElement title : linkTitles) {
-            String titleText = title.getText();
-            Assert.assertTrue(titleText.contains(searchWords));
+            String titleText = title.getText().toLowerCase();
+            Assert.assertTrue(titleText.contains(searchWords.toLowerCase()),
+                    "\" " + titleText + " \" do not contains " + searchWords);
         }
     }
 
     @AfterClass
-    public void shutDown() {
+    public void tearDown() {
         driver.quit();
     }
 }

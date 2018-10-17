@@ -2,6 +2,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="MainSuite">
+    <listeners>
+
+        <listener class-name="com.testmatick.log.CustomListener"/>
+
+    </listeners>
+
     <test name="test">
 
         <parameter name="search" value="Cats"/>
@@ -9,5 +15,6 @@
         <classes>
             <class name="com.testmatick.SearchTest"/>
         </classes>
+
     </test>
 </suite>
